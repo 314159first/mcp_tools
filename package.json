@@ -1,0 +1,22 @@
+{
+  "name": "mcp-system",
+  "version": "1.0.0",
+  "description": "A minimal MCP stdio server for AgentX tool upload testing.",
+  "type": "module",
+  "bin": {
+    "mcp-system": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "agentx",
+    "stdio",
+    "tool"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  }
+}
