@@ -1,0 +1,22 @@
+{
+  "name": "mcp-command",
+  "version": "1.0.0",
+  "description": "MCP command runner tools for AgentX.",
+  "type": "module",
+  "bin": {
+    "mcp-command": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "agentx",
+    "command",
+    "shell"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  }
+}

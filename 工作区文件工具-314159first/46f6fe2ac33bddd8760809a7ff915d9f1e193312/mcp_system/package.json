@@ -1,0 +1,22 @@
+{
+  "name": "mcp-system",
+  "version": "1.0.0",
+  "description": "Workspace MCP tools for AgentX, including system info and file operations.",
+  "type": "module",
+  "bin": {
+    "mcp-system": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "agentx",
+    "stdio",
+    "tool"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  }
+}
