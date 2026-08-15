@@ -77,9 +77,12 @@ https://github.com/314159first/mcp_tools
       "command": "npx",
       "args": [
         "-y",
-        "github:314159first/mcp_tools",
+        "github:314159first/mcp_tools#v1.1.0",
         "mcp-system"
-      ]
+      ],
+      "env": {
+        "MCP_WORKSPACE_ROOT": "/etc/proxy/vm"
+      }
     }
   }
 }
@@ -94,7 +97,7 @@ https://github.com/314159first/mcp_tools
       "command": "npx",
       "args": [
         "-y",
-        "github:314159first/mcp_tools",
+        "github:314159first/mcp_tools#v1.1.0",
         "mcp-command"
       ]
     }

@@ -7,7 +7,7 @@ AgentX 的工作区 MCP 工具，负责系统信息、目录查看和文件读�
 
 - `system_info`: return host runtime information / 获取当前机器运行环境信息
 - `echo_message`: echo input text with a timestamp / 原样返回消息并附带时间戳
-- `pwd`: return the current working directory / 获取当前工作目录
+- `pwd`: return the configured workspace root / 获取配置的工作区根目录
 - `list_dir`: list files and folders in a directory / 查看目录下的文件和文件夹
 - `read_file`: read a UTF-8 text file / 读取 UTF-8 文本文件
 - `write_file`: write a UTF-8 text file / 写入 UTF-8 文本文件
@@ -45,6 +45,14 @@ npm install
 
 ```bash
 npm start
+```
+
+By default, the process working directory is used as the workspace. Set `MCP_WORKSPACE_ROOT` to use a persistent workspace instead. The directory is created automatically when the server starts.
+
+默认使用进程工作目录作为工作区。可通过 `MCP_WORKSPACE_ROOT` 指定持久化工作区，服务启动时会自动创建该目录。
+
+```bash
+MCP_WORKSPACE_ROOT=/etc/proxy/vm npm start
 ```
 
 ## Tool Examples / 工具调用示例

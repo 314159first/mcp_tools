@@ -10,13 +10,14 @@ import {
   ListToolsRequestSchema
 } from "@modelcontextprotocol/sdk/types.js";
 
-const WORKSPACE_ROOT = process.cwd();
+const configuredWorkspaceRoot = process.env.MCP_WORKSPACE_ROOT?.trim();
+const WORKSPACE_ROOT = path.resolve(configuredWorkspaceRoot || process.cwd());
 const MAX_FILE_SIZE = 1024 * 1024;
 
 const server = new Server(
   {
     name: "mcp-system",
-    version: "1.0.0"
+    version: "1.1.0"
   },
   {
     capabilities: {
@@ -29,7 +30,7 @@ function resolveWorkspacePath(targetPath = ".") {
   const resolvedPath = path.resolve(WORKSPACE_ROOT, targetPath);
   const relativePath = path.relative(WORKSPACE_ROOT, resolvedPath);
 
-  if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
+  if (relativePath === ".." || relativePath.startsWith(`..${path.sep}`) || path.isAbsolute(relativePath)) {
     throw new Error(`Path escapes workspace root: ${targetPath}`);
   }
 
@@ -68,7 +69,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     },
     {
       name: "pwd",
-      description: "Return the current working directory of the MCP server process.",
+      description: "Return the configured workspace root.",
       inputSchema: {
         type: "object",
         properties: {},
@@ -77,7 +78,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     },
     {
       name: "list_dir",
-      description: "List files and folders in the provided directory. Defaults to the current working directory.",
+      description: "List files and folders in the provided directory. Defaults to the workspace root.",
       inputSchema: {
         type: "object",
         properties: {
@@ -178,7 +179,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       content: [
         {
           type: "text",
-          text: process.cwd()
+          text: WORKSPACE_ROOT
         }
       ]
     };
@@ -292,4 +293,5 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 const transport = new StdioServerTransport();
+await fs.mkdir(WORKSPACE_ROOT, { recursive: true });
 await server.connect(transport);
