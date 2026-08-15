@@ -74,10 +74,12 @@ https://github.com/314159first/mcp_tools
 {
   "mcpServers": {
     "mcp-system": {
-      "command": "npx",
+      "command": "/usr/bin/env",
       "args": [
+        "MCP_WORKSPACE_ROOT=/etc/proxy/vm",
+        "npx",
         "-y",
-        "github:314159first/mcp_tools#v1.1.0",
+        "github:314159first/mcp_tools#v1.1.1",
         "mcp-system"
       ],
       "env": {
@@ -94,12 +96,17 @@ https://github.com/314159first/mcp_tools
 {
   "mcpServers": {
     "mcp-command": {
-      "command": "npx",
+      "command": "/usr/bin/env",
       "args": [
+        "MCP_WORKSPACE_ROOT=/etc/proxy/vm",
+        "npx",
         "-y",
-        "github:314159first/mcp_tools#v1.1.0",
+        "github:314159first/mcp_tools#v1.1.1",
         "mcp-command"
-      ]
+      ],
+      "env": {
+        "MCP_WORKSPACE_ROOT": "/etc/proxy/vm"
+      }
     }
   }
 }

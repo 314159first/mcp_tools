@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import path from "node:path";
+import fs from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -9,13 +10,14 @@ import {
   ListToolsRequestSchema
 } from "@modelcontextprotocol/sdk/types.js";
 
-const WORKSPACE_ROOT = process.cwd();
+const configuredWorkspaceRoot = process.env.MCP_WORKSPACE_ROOT?.trim();
+const WORKSPACE_ROOT = path.resolve(configuredWorkspaceRoot || process.cwd());
 const DEFAULT_COMMAND_TIMEOUT_MS = 120000;
 
 const server = new Server(
   {
     name: "mcp-command",
-    version: "1.0.0"
+    version: "1.0.1"
   },
   {
     capabilities: {
@@ -28,7 +30,7 @@ function resolveWorkspacePath(targetPath = ".") {
   const resolvedPath = path.resolve(WORKSPACE_ROOT, targetPath);
   const relativePath = path.relative(WORKSPACE_ROOT, resolvedPath);
 
-  if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
+  if (relativePath === ".." || relativePath.startsWith(`..${path.sep}`) || path.isAbsolute(relativePath)) {
     throw new Error(`Path escapes workspace root: ${targetPath}`);
   }
 
@@ -178,4 +180,5 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 const transport = new StdioServerTransport();
+await fs.mkdir(WORKSPACE_ROOT, { recursive: true });
 await server.connect(transport);

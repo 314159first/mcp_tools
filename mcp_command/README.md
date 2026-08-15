@@ -32,8 +32,12 @@ npm install
 ## Run / 本地启动
 
 ```bash
-npm start
+MCP_WORKSPACE_ROOT=/etc/proxy/vm npm start
 ```
+
+`MCP_WORKSPACE_ROOT` sets the only directory in which commands may run. The directory is created automatically when needed.
+
+`MCP_WORKSPACE_ROOT` 用来指定命令唯一允许访问的工作区；目录不存在时会自动创建。
 
 ## Tool Example / 工具调用示例
 
